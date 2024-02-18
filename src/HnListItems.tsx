@@ -39,20 +39,7 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
     return <></>;
   }
   if (!isSuccess) {
-    // Show the error message if any of the queries failed, so we can see what failed
-    return (
-      <div>
-        {itemQueryResults.map((query, i) => {
-          // Print the query key so we can see which query failed
-          return (
-            <div key={i}>
-              <pre>{JSON.stringify(query, null, 2)}</pre>
-              {query.error?.message}
-            </div>
-          );
-        })}
-      </div>
-    );
+    return <>Error</>;
   }
 
   // If we're here, we know that all the queries succeeded.
