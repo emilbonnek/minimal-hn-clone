@@ -1,15 +1,16 @@
 import { array, number, parse } from "valibot";
-import { Author, AuthorSchema, Item, ItemSchema, ListType } from "./types";
+import { Author, AuthorSchema, Item, ItemSchema } from "./types";
+import { ListType } from "../stories-navigation";
 
 const BASE_URL = "https://hacker-news.firebaseio.com/v0";
 
 /**
  * Fetches 500 IDs from the Hacker News API.
- * @param listType The type of list to fetch.
+ * @param list The type of list to fetch.
  * @returns An array of IDs.
  */
-export async function getIds(listType: ListType) {
-  const r = await fetch(`${BASE_URL}/${listType}stories.json`);
+export async function getIds(list: ListType) {
+  const r = await fetch(`${BASE_URL}/${list}stories.json`);
   const json = await r.json();
   const ids = parse(array(number()), json);
   return ids;

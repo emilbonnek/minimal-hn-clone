@@ -3,22 +3,23 @@ import { getItem, getIds } from "./hackernews/api";
 import CardStory from "./CardStory";
 import CardJob from "./CardJob";
 import CardPoll from "./CardPoll";
-import { Amount, ListType, SortBy } from "./stories-navigation";
+import { ListType, SortBy } from "./stories-navigation";
 
 interface HnListStoriesProps {
-  listType: ListType;
-  amount: Amount;
+  list: ListType;
   sortBy: SortBy;
 }
 
-function HnListItems({ listType, amount, sortBy }: HnListStoriesProps) {
+const PAGE_SIZE = 10;
+
+function HnListItems({ list, sortBy }: HnListStoriesProps) {
   const { data: ids } = useQuery({
-    queryKey: ["ids", listType],
-    queryFn: () => getIds(listType),
+    queryKey: ["ids", list],
+    queryFn: () => getIds(list),
   });
 
   const page = 1; // For now, we're just going to show the first page of results
-  const paginatedIds = ids?.slice(page * amount, (page + 1) * amount);
+  const paginatedIds = ids?.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
   const itemQueryResults = useQueries({
     queries: paginatedIds
       ? paginatedIds.map((id) => {
