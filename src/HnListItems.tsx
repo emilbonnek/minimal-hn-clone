@@ -3,16 +3,17 @@ import { getItem, getIds } from "./hackernews/api";
 import CardStory from "./CardStory";
 import CardJob from "./CardJob";
 import CardPoll from "./CardPoll";
-import { ListType, SortBy } from "./stories-navigation";
+import { ListType, Order, SortBy } from "./stories-navigation";
 
 interface HnListStoriesProps {
   list: ListType;
   sortBy: SortBy;
+  order: Order;
 }
 
 const PAGE_SIZE = 10;
 
-function HnListItems({ list, sortBy }: HnListStoriesProps) {
+function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
   const { data: ids } = useQuery({
     queryKey: ["ids", list],
     queryFn: () => getIds(list),
@@ -54,17 +55,20 @@ function HnListItems({ list, sortBy }: HnListStoriesProps) {
     );
   }
 
-  // If we're here, we know that all the queries succeeded. Now we sort the results by the sortby parameter
+  // If we're here, we know that all the queries succeeded.
   const sortedItemQueryResults = itemQueryResults.sort((a, b) => {
-    if (a.isSuccess && b.isSuccess) {
-      if (sortBy === "score") {
-        return b.data.score - a.data.score;
-      }
-      if (sortBy === "time") {
-        return b.data.time.getTime() - a.data.time.getTime();
-      }
+    // This should never happen, but checking to make typescript happy
+    if (!a.isSuccess || !b.isSuccess) {
+      return 0;
     }
-    return 0;
+
+    const [left, right] = order === "desc" ? [a, b] : [b, a];
+
+    if (sortBy === "score") {
+      return left.data.score - right.data.score;
+    } else {
+      return left.data.time.getTime() - right.data.time.getTime();
+    }
   });
 
   return (

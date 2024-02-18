@@ -3,6 +3,8 @@ import HnListItems from "../HnListItems";
 import { fallback, object, parse } from "valibot";
 import {
   ListTypeSchema,
+  ORDER_OPTIONS,
+  OrderSchema,
   SORT_BY_OPTIONS,
   SortBySchema,
 } from "../stories-navigation";
@@ -11,6 +13,7 @@ import Navigation from "../Navigation";
 const StoriesSearchSchema = object({
   list: fallback(ListTypeSchema, "new"),
   sortBy: fallback(SortBySchema, "score"),
+  order: fallback(OrderSchema, "desc"),
 });
 
 export const Route = createFileRoute("/stories")({
@@ -27,13 +30,13 @@ export const Route = createFileRoute("/stories")({
  * @returns A page that displays a list of stories from Hacker News
  */
 function Stories() {
-  const { list, sortBy } = Route.useSearch();
+  const { list, sortBy, order } = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
 
   return (
     <>
       <div className="flex justify-between">
-        <Navigation sortBy={sortBy} />
+        <Navigation sortBy={sortBy} order={order} />
 
         <div className="flex items-center">
           <form>
@@ -48,6 +51,7 @@ function Stories() {
                     search: {
                       list,
                       sortBy: newSortBy,
+                      order,
                     },
                   });
                 }}
@@ -59,14 +63,36 @@ function Stories() {
                 ))}
               </select>
             </div>
-            <div></div>
+            <div>
+              <label htmlFor="order">Order:</label>
+              <select
+                name="order"
+                value={order}
+                onChange={(e) => {
+                  const newOrder = parse(OrderSchema, e.target.value);
+                  navigate({
+                    search: {
+                      list,
+                      sortBy,
+                      order: newOrder,
+                    },
+                  });
+                }}
+              >
+                {ORDER_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
           </form>
         </div>
       </div>
 
       <hr />
       <div className="p-2">
-        <HnListItems list={list} sortBy={sortBy} />
+        <HnListItems list={list} sortBy={sortBy} order={order} />
       </div>
     </>
   );

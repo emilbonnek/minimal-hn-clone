@@ -1,17 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { LIST_TYPE_OPTIONS, SortBy } from "./stories-navigation";
+import { LIST_TYPE_OPTIONS, Order, SortBy } from "./stories-navigation";
 
 interface NavigationProps {
   sortBy: SortBy;
+  order: Order;
 }
 
 /**
  * A navigation component to switch between different lists of stories
  *
  * @param sortBy The sorting method to use after navigating
+ * @param order The order to sort the stories after navigating
  * @returns A navigation component
  */
-function Navigation({ sortBy }: NavigationProps) {
+function Navigation({ sortBy, order }: NavigationProps) {
   return (
     <nav className="p-2 flex gap-2">
       {LIST_TYPE_OPTIONS.map((list) => (
@@ -21,6 +23,7 @@ function Navigation({ sortBy }: NavigationProps) {
           search={{
             list,
             sortBy,
+            order,
           }}
           className="[&.active]:font-bold"
         >
