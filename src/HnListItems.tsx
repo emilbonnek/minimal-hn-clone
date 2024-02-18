@@ -11,6 +11,7 @@ interface HnListStoriesProps {
   order: Order;
 }
 
+const PAGE = 1;
 const PAGE_SIZE = 10;
 
 function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
@@ -19,8 +20,7 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
     queryFn: () => getIds(list),
   });
 
-  const page = 1; // For now, we're just going to show the first page of results
-  const paginatedIds = ids?.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const paginatedIds = ids?.slice(PAGE * PAGE_SIZE, (PAGE + 1) * PAGE_SIZE);
   const itemQueryResults = useQueries({
     queries: paginatedIds
       ? paginatedIds.map((id) => {
