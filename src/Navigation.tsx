@@ -18,6 +18,7 @@ function Navigation({ sortBy, amount }: NavigationProps) {
     <nav className="p-2 flex gap-2">
       {LIST_TYPE_OPTIONS.map((list) => (
         <Link
+          key={list}
           to="/stories"
           search={{
             list,
