@@ -16,28 +16,15 @@ export const Route = createRootRoute({
           Best
         </Link>
         {""}
-        {/* 
-        <Link
-          to="/stories/$listType"
-          params={{ listType: "ask" }}
-          className="[&.active]:font-bold"
-        >
+        <Link to="/stories/ask" className="[&.active]:font-bold">
           Ask
         </Link>{" "}
-        <Link
-          to="/stories/$listType"
-          params={{ listType: "show" }}
-          className="[&.active]:font-bold"
-        >
+        <Link to="/stories/show" className="[&.active]:font-bold">
           Show
         </Link>{" "}
-        <Link
-          to="/stories/$listType"
-          params={{ listType: "job" }}
-          className="[&.active]:font-bold"
-        >
+        <Link to="/stories/job" className="[&.active]:font-bold">
           Job
-        </Link> */}
+        </Link>
       </div>
       <hr />
       <div className="p-2">
