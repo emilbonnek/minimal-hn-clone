@@ -1,79 +1,34 @@
 import { Link } from "@tanstack/react-router";
-import { SortBy } from "./hackernews/types";
+import { Amount, LIST_TYPE_OPTIONS, SortBy } from "./stories-navigation";
 
 interface NavigationProps {
   sortBy: SortBy;
+  amount: Amount;
 }
 
 /**
  * A navigation component to switch between different lists of stories
  *
+ * @param amount The amount of stories to show
  * @param sortBy The sorting method
  * @returns A navigation component
  */
-function Navigation({ sortBy }: NavigationProps) {
+function Navigation({ sortBy, amount }: NavigationProps) {
   return (
     <nav className="p-2 flex gap-2">
-      <Link
-        to="/stories"
-        search={{
-          list: "new",
-          sortBy,
-        }}
-        className="[&.active]:font-bold"
-      >
-        New
-      </Link>{" "}
-      <Link
-        to="/stories"
-        search={{
-          list: "top",
-          sortBy,
-        }}
-        className="[&.active]:font-bold"
-      >
-        Top
-      </Link>{" "}
-      <Link
-        to="/stories"
-        search={{
-          list: "best",
-          sortBy,
-        }}
-        className="[&.active]:font-bold"
-      >
-        Best
-      </Link>{" "}
-      <Link
-        to="/stories"
-        search={{
-          list: "ask",
-          sortBy,
-        }}
-        className="[&.active]:font-bold"
-      >
-        Ask
-      </Link>{" "}
-      <Link
-        to="/stories"
-        search={{
-          list: "show",
-          sortBy,
-        }}
-        className="[&.active]:font-bold"
-      >
-        Show
-      </Link>{" "}
-      <Link
-        to="/stories"
-        search={{
-          list: "job",
-          sortBy,
-        }}
-        className="[&.active]:font-bold"
-      >
-        Job
-      </Link>
+      {LIST_TYPE_OPTIONS.map((list) => (
+        <Link
+          to="/stories"
+          search={{
+            list,
+            amount,
+            sortBy,
+          }}
+          className="[&.active]:font-bold"
+        >
+          {list}
+        </Link>
+      ))}
     </nav>
   );
 }

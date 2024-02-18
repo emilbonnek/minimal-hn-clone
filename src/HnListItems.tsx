@@ -1,24 +1,24 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { getItem, getIds } from "./hackernews/api";
-import { ListType } from "./hackernews/types";
 import CardStory from "./CardStory";
 import CardJob from "./CardJob";
 import CardPoll from "./CardPoll";
-
-const PAGE_SIZE = 10;
+import { Amount, ListType, SortBy } from "./stories-navigation";
 
 interface HnListStoriesProps {
   listType: ListType;
+  amount: Amount;
+  sortBy: SortBy;
 }
 
-function HnListItem({ listType }: HnListStoriesProps) {
+function HnListItems({ listType, amount, sortBy }: HnListStoriesProps) {
   const { data: ids } = useQuery({
     queryKey: ["ids", listType],
     queryFn: () => getIds(listType),
   });
 
   const page = 1; // For now, we're just going to show the first page of results
-  const paginatedIds = ids?.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const paginatedIds = ids?.slice(page * amount, (page + 1) * amount);
   const itemQueryResults = useQueries({
     queries: paginatedIds
       ? paginatedIds.map((id) => {
@@ -34,7 +34,7 @@ function HnListItem({ listType }: HnListStoriesProps) {
   const isSuccess = itemQueryResults.every((query) => query.isSuccess);
 
   if (isLoading) {
-    return <div></div>;
+    return <></>;
   }
   if (!isSuccess) {
     // Show the error message if any of the queries failed, so we can see what failed
@@ -53,9 +53,22 @@ function HnListItem({ listType }: HnListStoriesProps) {
     );
   }
 
+  // If we're here, we know that all the queries succeeded. Now we sort the results by the sortby parameter
+  const sortedItemQueryResults = itemQueryResults.sort((a, b) => {
+    if (a.isSuccess && b.isSuccess) {
+      if (sortBy === "score") {
+        return b.data.score - a.data.score;
+      }
+      if (sortBy === "time") {
+        return b.data.time.getTime() - a.data.time.getTime();
+      }
+    }
+    return 0;
+  });
+
   return (
     <div>
-      {itemQueryResults.map(
+      {sortedItemQueryResults.map(
         (storyQueryResult) =>
           storyQueryResult.isSuccess &&
           storyQueryResult.data && (
@@ -76,4 +89,4 @@ function HnListItem({ listType }: HnListStoriesProps) {
   );
 }
 
-export default HnListItem;
+export default HnListItems;
