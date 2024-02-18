@@ -21,6 +21,13 @@ export const Route = createFileRoute("/stories")({
     parse(StoriesSearchSchema, search),
 });
 
+/**
+ * A page that displays a list of stories from Hacker News
+ *
+ * It takes search parameters from the URL to determine the list type, amount, and sorting method
+ *
+ * @returns A page that displays a list of stories from Hacker News
+ */
 function Stories() {
   const { list, amount, sortBy } = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
