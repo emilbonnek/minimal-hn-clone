@@ -11,6 +11,9 @@ import {
   variant,
 } from "valibot";
 
+export const SortBySchema = picklist(["score", "date"]);
+export type SortBy = Output<typeof SortBySchema>;
+
 export const ListTypeSchema = picklist([
   "top",
   "new",

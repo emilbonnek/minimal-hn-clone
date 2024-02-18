@@ -5,7 +5,7 @@ import CardStory from "./CardStory";
 import CardJob from "./CardJob";
 import CardPoll from "./CardPoll";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 interface HnListStoriesProps {
   listType: ListType;

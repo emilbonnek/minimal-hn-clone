@@ -11,48 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as StoriesTopImport } from './routes/stories.top'
-import { Route as StoriesShowImport } from './routes/stories.show'
-import { Route as StoriesNewImport } from './routes/stories.new'
-import { Route as StoriesJobImport } from './routes/stories.job'
-import { Route as StoriesBestImport } from './routes/stories.best'
-import { Route as StoriesAskImport } from './routes/stories.ask'
-import { Route as ItemIdImport } from './routes/item.$id'
+import { Route as StoriesImport } from './routes/stories'
 
 // Create/Update Routes
 
-const StoriesTopRoute = StoriesTopImport.update({
-  path: '/stories/top',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoriesShowRoute = StoriesShowImport.update({
-  path: '/stories/show',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoriesNewRoute = StoriesNewImport.update({
-  path: '/stories/new',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoriesJobRoute = StoriesJobImport.update({
-  path: '/stories/job',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoriesBestRoute = StoriesBestImport.update({
-  path: '/stories/best',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const StoriesAskRoute = StoriesAskImport.update({
-  path: '/stories/ask',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ItemIdRoute = ItemIdImport.update({
-  path: '/item/$id',
+const StoriesRoute = StoriesImport.update({
+  path: '/stories',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,32 +24,8 @@ const ItemIdRoute = ItemIdImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/item/$id': {
-      preLoaderRoute: typeof ItemIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/stories/ask': {
-      preLoaderRoute: typeof StoriesAskImport
-      parentRoute: typeof rootRoute
-    }
-    '/stories/best': {
-      preLoaderRoute: typeof StoriesBestImport
-      parentRoute: typeof rootRoute
-    }
-    '/stories/job': {
-      preLoaderRoute: typeof StoriesJobImport
-      parentRoute: typeof rootRoute
-    }
-    '/stories/new': {
-      preLoaderRoute: typeof StoriesNewImport
-      parentRoute: typeof rootRoute
-    }
-    '/stories/show': {
-      preLoaderRoute: typeof StoriesShowImport
-      parentRoute: typeof rootRoute
-    }
-    '/stories/top': {
-      preLoaderRoute: typeof StoriesTopImport
+    '/stories': {
+      preLoaderRoute: typeof StoriesImport
       parentRoute: typeof rootRoute
     }
   }
@@ -93,14 +33,6 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
-  ItemIdRoute,
-  StoriesAskRoute,
-  StoriesBestRoute,
-  StoriesJobRoute,
-  StoriesNewRoute,
-  StoriesShowRoute,
-  StoriesTopRoute,
-])
+export const routeTree = rootRoute.addChildren([StoriesRoute])
 
 /* prettier-ignore-end */
