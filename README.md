@@ -24,4 +24,4 @@ npm run dev
 
 ## Tools and Dependencies
 
-I have chosen to use Vite with React for this task. On top of React I have used Tanstack Router for type-safe routing including handling of query parameters as state. I have used Tanstack React query for fetching and caching the stories and authors. Tailwind CSS is used for styling. My solution is written in TypeScript, and I have used Valibot (a modern alternative to Zod) for runtime schema validation.
+I have chosen to use [Vite](https://vitejs.dev/) with [React](https://react.dev/) for this task. On top of React I have used [Tanstack Router](https://tanstack.com/router) for type-safe routing including handling of query parameters as state. I have used [Tanstack/React Query]() for fetching and caching the stories and authors. [Tailwind CSS](https://tailwindcss.com/) is used for styling. My solution is written in [TypeScript](https://www.typescriptlang.org/), and I have used [Valibot](https://valibot.dev/) (a modern alternative to Zod) for runtime schema validation.
