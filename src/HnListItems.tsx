@@ -57,7 +57,7 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
   });
 
   return (
-    <div>
+    <>
       {sortedItemQueryResults.map(
         (storyQueryResult) =>
           storyQueryResult.isSuccess &&
@@ -67,7 +67,7 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
             </div>
           )
       )}
-    </div>
+    </>
   );
 }
 

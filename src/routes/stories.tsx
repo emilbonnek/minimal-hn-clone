@@ -3,12 +3,11 @@ import HnListItems from "../HnListItems";
 import { fallback, object, parse } from "valibot";
 import {
   ListTypeSchema,
-  ORDER_OPTIONS,
   OrderSchema,
-  SORT_BY_OPTIONS,
   SortBySchema,
 } from "../stories-navigation";
 import Navigation from "../Navigation";
+import FormSorting from "../FormSorting";
 
 const StoriesSearchSchema = object({
   list: fallback(ListTypeSchema, "new"),
@@ -39,54 +38,28 @@ function Stories() {
         <Navigation sortBy={sortBy} order={order} />
 
         <div className="flex items-center">
-          <form>
-            <div>
-              <label htmlFor="sortBy">Sort by:</label>
-              <select
-                name="sortBy"
-                value={sortBy}
-                onChange={(e) => {
-                  const newSortBy = parse(SortBySchema, e.target.value);
-                  navigate({
-                    search: {
-                      list,
-                      sortBy: newSortBy,
-                      order,
-                    },
-                  });
-                }}
-              >
-                {SORT_BY_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="order">Order:</label>
-              <select
-                name="order"
-                value={order}
-                onChange={(e) => {
-                  const newOrder = parse(OrderSchema, e.target.value);
-                  navigate({
-                    search: {
-                      list,
-                      sortBy,
-                      order: newOrder,
-                    },
-                  });
-                }}
-              >
-                {ORDER_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </form>
+          <FormSorting
+            sortBy={sortBy}
+            order={order}
+            onChangeSortBy={(newSortBy) => {
+              navigate({
+                search: {
+                  list,
+                  sortBy: newSortBy,
+                  order,
+                },
+              });
+            }}
+            onChangeOrder={(newOrder) => {
+              navigate({
+                search: {
+                  list,
+                  sortBy,
+                  order: newOrder,
+                },
+              });
+            }}
+          />
         </div>
       </div>
 
