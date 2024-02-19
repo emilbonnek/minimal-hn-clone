@@ -1,6 +1,6 @@
 import { array, number, parse } from "valibot";
 import { Author, AuthorSchema, Item, ItemSchema } from "./types";
-import { ListType } from "../stories-navigation";
+import { ListType } from "../utils/stories-navigation";
 
 const BASE_URL = "https://hacker-news.firebaseio.com/v0";
 

@@ -1,9 +1,9 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { getItem, getIds } from "./hackernews/api";
-import { ListType, Order, SortBy } from "./stories-navigation";
+import { getItem, getIds } from "../hackernews/api";
+import { ListType, Order, SortBy } from "../utils/stories-navigation";
 import CardItem from "./CardItem";
 
-interface HnListStoriesProps {
+interface ListStoriesProps {
   list: ListType;
   sortBy: SortBy;
   order: Order;
@@ -13,7 +13,7 @@ interface HnListStoriesProps {
 const PAGE = 1;
 const PAGE_SIZE = 10;
 
-function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
+function ListItems({ list, sortBy, order }: ListStoriesProps) {
   // Fetch the list of IDs for the given list type
   const { data: ids } = useQuery({
     queryKey: ["ids", list],
@@ -78,4 +78,4 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
   );
 }
 
-export default HnListItems;
+export default ListItems;

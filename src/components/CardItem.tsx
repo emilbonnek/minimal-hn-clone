@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAuthor } from "./hackernews/api";
-import { Item } from "./hackernews/types";
-import { formatRelativeTimeFormat } from "./utils/dates";
+import { getAuthor } from "../hackernews/api";
+import { Item } from "../hackernews/types";
+import { formatRelativeTimeFormat } from "../utils/dates";
 
 interface CardItemProps {
   item: Item;

@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-import NavigateToStories from "../NavigateToStories";
+import NavigateToStories from "../components/NavigateToStories";
 
 export const Route = createRootRoute({
   notFoundComponent: NavigateToStories,

@@ -6,7 +6,7 @@ import {
   SORT_BY_OPTIONS,
   SortBy,
   SortBySchema,
-} from "./stories-navigation";
+} from "../utils/stories-navigation";
 
 interface FormSortingProps {
   sortBy: SortBy;

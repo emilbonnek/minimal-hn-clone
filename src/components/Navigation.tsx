@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { LIST_TYPE_OPTIONS, Order, SortBy } from "./stories-navigation";
+import { LIST_TYPE_OPTIONS, Order, SortBy } from "../utils/stories-navigation";
 
 interface NavigationProps {
   sortBy: SortBy;

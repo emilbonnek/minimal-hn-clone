@@ -1,13 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import HnListItems from "../HnListItems";
+import ListItems from "../components/ListItems";
 import { fallback, object, parse } from "valibot";
 import {
   ListTypeSchema,
   OrderSchema,
   SortBySchema,
-} from "../stories-navigation";
-import Navigation from "../Navigation";
-import FormSorting from "../FormSorting";
+} from "../utils/stories-navigation";
+import Navigation from "../components/Navigation";
+import FormSorting from "../components/FormSorting";
 
 const StoriesSearchSchema = object({
   list: fallback(ListTypeSchema, "new"),
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/stories")({
 /**
  * A page that displays a list of stories from Hacker News
  *
- * It takes search parameters from the URL to determine the list type, amount, and sorting method
+ * It takes search parameters from the URL to determine the list type, sorting method and sorting order
  *
  * @returns A page that displays a list of stories from Hacker News
  */
@@ -64,8 +64,9 @@ function Stories() {
       </div>
 
       <hr />
+
       <div className="p-2">
-        <HnListItems list={list} sortBy={sortBy} order={order} />
+        <ListItems list={list} sortBy={sortBy} order={order} />
       </div>
     </>
   );
