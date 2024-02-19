@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAuthor } from "./hackernews/api";
 import { Item } from "./hackernews/types";
+import { formatRelativeTimeFormat } from "./utils/dates";
 
 interface CardItemProps {
   item: Item;
@@ -49,7 +50,9 @@ function CardItem({ item }: CardItemProps) {
           Score: <span className="font-semibold">{item.score}</span>
         </p>
       </div>
-      <p className="text-sm text-gray-500">{item.time.toLocaleString()}</p>
+      <p className="text-sm text-gray-500">
+        {formatRelativeTimeFormat(item.time)}
+      </p>
     </div>
   );
 }

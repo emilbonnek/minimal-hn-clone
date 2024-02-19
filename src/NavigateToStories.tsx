@@ -1,9 +1,9 @@
 import { Navigate } from "@tanstack/react-router";
 
 /**
- * Redirect to the news page
+ * Redirect to the stories page with the "new" list type, sorted by score, and in ascending order
  */
-function NavigateToNews() {
+function NavigateToStories() {
   return (
     <Navigate
       to="/stories"
@@ -12,4 +12,4 @@ function NavigateToNews() {
   );
 }
 
-export default NavigateToNews;
+export default NavigateToStories;
