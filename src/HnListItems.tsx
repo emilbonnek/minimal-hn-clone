@@ -1,9 +1,7 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { getItem, getIds } from "./hackernews/api";
-import CardStory from "./CardStory";
-import CardJob from "./CardJob";
-import CardPoll from "./CardPoll";
 import { ListType, Order, SortBy } from "./stories-navigation";
+import CardItem from "./CardItem";
 
 interface HnListStoriesProps {
   list: ListType;
@@ -49,7 +47,7 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
       return 0;
     }
 
-    const [left, right] = order === "desc" ? [a, b] : [b, a];
+    const [left, right] = order === "asc" ? [a, b] : [b, a];
 
     if (sortBy === "score") {
       return left.data.score - right.data.score;
@@ -65,15 +63,7 @@ function HnListItems({ list, sortBy, order }: HnListStoriesProps) {
           storyQueryResult.isSuccess &&
           storyQueryResult.data && (
             <div key={storyQueryResult.data.id}>
-              {storyQueryResult.data.type === "story" && (
-                <CardStory story={storyQueryResult.data} />
-              )}
-              {storyQueryResult.data.type === "job" && (
-                <CardJob job={storyQueryResult.data} />
-              )}
-              {storyQueryResult.data.type === "poll" && (
-                <CardPoll poll={storyQueryResult.data} />
-              )}
+              <CardItem item={storyQueryResult.data} />
             </div>
           )
       )}

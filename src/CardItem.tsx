@@ -1,35 +1,41 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAuthor } from "./hackernews/api";
-import { Poll } from "./hackernews/types";
+import { Item } from "./hackernews/types";
 
-interface CardPollProps {
-  poll: Poll;
+interface CardItemProps {
+  item: Item;
 }
 
 /**
- * A card component to display a poll
+ * A card component to display a item
  *
- * @param poll The poll to display
+ * @param item The item to display
  * @returns A card component
  */
-function CardPoll({ poll }: CardPollProps) {
+function CardItem({ item }: CardItemProps) {
   const {
     data: author,
     isLoading,
     isSuccess,
   } = useQuery({
-    queryKey: ["author", poll.by],
-    queryFn: () => getAuthor(poll.by),
+    queryKey: ["author", item.by],
+    queryFn: () => getAuthor(item.by),
   });
 
   return (
     <div className="h-auto p-4 border border-gray-200 my-4 rounded-lg shadow space-y-2 bg-white">
-      <h2 className="text-xl font-bold text-blue-600">{poll.title}</h2>
+      {item.type === "story" ? (
+        <a href={item.url} className="hover:underline">
+          <h2 className="text-xl font-bold text-blue-600">{item.title}</h2>
+        </a>
+      ) : (
+        <h2 className="text-xl font-bold text-blue-600">{item.title}</h2>
+      )}
       <div className="flex justify-between items-center">
         <div className="flex items-baseline">
           <p className="text-gray-600 mr-2">By:</p>
           <p className="text-gray-900 font-semibold flex items-baseline">
-            {poll.by}
+            {item.by}
             {isLoading ? (
               <sub className="text-xs ml-1">...</sub>
             ) : isSuccess ? (
@@ -40,12 +46,12 @@ function CardPoll({ poll }: CardPollProps) {
           </p>
         </div>
         <p className="text-gray-600">
-          Score: <span className="font-semibold">{poll.score}</span>
+          Score: <span className="font-semibold">{item.score}</span>
         </p>
       </div>
-      <p className="text-sm text-gray-500">{poll.time.toLocaleString()}</p>
+      <p className="text-sm text-gray-500">{item.time.toLocaleString()}</p>
     </div>
   );
 }
 
-export default CardPoll;
+export default CardItem;
