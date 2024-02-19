@@ -7,7 +7,7 @@ function NavigateToNews() {
   return (
     <Navigate
       to="/stories"
-      search={{ list: "new", amount: 10, sortBy: "score" }}
+      search={{ list: "new", sortBy: "score", order: "asc" }}
     />
   );
 }
